@@ -1,10 +1,14 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"math/rand"
 	"runtime"
 	"sort"
 )
+
+const MAX_NUM = 999999
 
 func twoSum2(nums []int, target int) []int {
 	// gen map
@@ -84,4 +88,31 @@ func twoSum4(nums []int, target int) []int {
 func main() {
 	s := []int{3, 2, 4}
 	fmt.Println(twoSum4(s, 6))
+}
+func generate(length int) (int, []int) {
+	if length < 2 {
+		panic(errors.New("lenght must large than 1"))
+	}
+	first := rand.Int() % MAX_NUM
+	second := rand.Int() % MAX_NUM
+	result := first + second
+
+	m := make(map[int]struct{})
+	m[first] = struct{}{}
+	m[second] = struct{}{}
+	for i := 2; i < length; i++ {
+		for {
+			n := rand.Int() % MAX_NUM
+			if _, ok := m[result-n]; !ok {
+				m[n] = struct{}{}
+				break
+			}
+		}
+	}
+	// get slice
+	s := make([]int, 0, len(m))
+	for k := range m {
+		s = append(s, k)
+	}
+	return result, s
 }
