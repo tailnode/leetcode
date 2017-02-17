@@ -85,9 +85,21 @@ func twoSum4(nums []int, target int) []int {
 	return twoSumDes(nums, target)
 
 }
+
+type testCase struct {
+	result int
+	nums   []int
+}
+
 func main() {
-	s := []int{3, 2, 4}
-	fmt.Println(twoSum4(s, 6))
+	// generate test cases
+	cases := make([]testCase, 100)
+	for i := range cases {
+		cases[i].result, cases[i].nums = generate(1000)
+	}
+	for i := range cases {
+		fmt.Println(twoSum4(cases[i].nums, cases[i].result))
+	}
 }
 func generate(length int) (int, []int) {
 	if length < 2 {
