@@ -7,7 +7,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+func addTwoNumbers1(l1 *ListNode, l2 *ListNode) *ListNode {
 	over := 0
 	newNode := &ListNode{}
 	newList := newNode
@@ -29,11 +29,32 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		newNode = newNode.Next
 	}
 	if over == 1 {
-		newNode.Next = &ListNode{
-			Val: 1,
-		}
+		newNode.Next = &ListNode{Val: 1}
 	}
 	return newList
+}
+func addTwoNumbers2(l1 *ListNode, l2 *ListNode) *ListNode {
+	n1, n2 := l1, l2
+	sum := 0
+	list := &ListNode{}
+	n := list
+	for n1 != nil || n2 != nil {
+		sum /= 10
+		if n1 != nil {
+			sum += n1.Val
+			n1 = n1.Next
+		}
+		if n2 != nil {
+			sum += n2.Val
+			n2 = n2.Next
+		}
+		n.Next = &ListNode{Val: sum % 10}
+		n = n.Next
+	}
+	if sum > 9 {
+		n.Next = &ListNode{Val: 1}
+	}
+	return list.Next
 }
 func genList(s []int) *ListNode {
 	if len(s) == 0 || s[0] < 0 || s[0] > 9 {
@@ -62,8 +83,8 @@ func (l *ListNode) String() string {
 	return fmt.Sprint(out)
 }
 func main() {
-	l1 := genList([]int{1, 2, 3, 4, 5, 6, 7, 8})
+	l1 := genList([]int{1, 2, 3, 4, 5, 6, 7})
 	l2 := genList([]int{1, 2, 3, 4, 5, 6, 7, 8})
-	sum := addTwoNumbers(l1, l2)
+	sum := addTwoNumbers2(l1, l2)
 	fmt.Println(sum)
 }

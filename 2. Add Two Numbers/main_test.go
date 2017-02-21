@@ -15,7 +15,12 @@ const L2_LEN = 899
 
 func Benchmark1(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		addTwoNumbers(l1, l2)
+		addTwoNumbers1(l1, l2)
+	}
+}
+func Benchmark2(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		addTwoNumbers2(l1, l2)
 	}
 }
 func TestMain(m *testing.M) {
