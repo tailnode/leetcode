@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -50,11 +52,18 @@ func genList(s []int) *ListNode {
 	}
 	return list
 }
-func (l *ListNode) String() {
-
+func (l *ListNode) String() string {
+	node := l
+	out := make([]int, 0)
+	for node != nil {
+		out = append(out, node.Val)
+		node = node.Next
+	}
+	return fmt.Sprint(out)
 }
 func main() {
 	l1 := genList([]int{1, 2, 3, 4, 5, 6, 7, 8})
 	l2 := genList([]int{1, 2, 3, 4, 5, 6, 7, 8})
-	addTwoNumbers(l1, l2)
+	sum := addTwoNumbers(l1, l2)
+	fmt.Println(sum)
 }
